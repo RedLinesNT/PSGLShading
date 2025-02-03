@@ -17,12 +17,12 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|PS3'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>GCC</PlatformToolset>
+    <PlatformToolset>SNC</PlatformToolset>
     <ExceptionsAndRtti>NoExceptsWithRtti</ExceptionsAndRtti>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|PS3'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>GCC</PlatformToolset>
+    <PlatformToolset>SNC</PlatformToolset>
     <ExceptionsAndRtti>NoExceptsWithRtti</ExceptionsAndRtti>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -50,14 +50,16 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|PS3'">
     <OutDir>$(SolutionDir)Bin\$(Platform)-$(Configuration)\</OutDir>
     <IntDir>Bin\$(Platform)-$(Configuration)\Intermediate\</IntDir>
-    <IncludePath>$(SCE_PS3_ROOT)\target\ppu\include;$(SCE_PS3_ROOT)\target\common\include;$(SCE_PS3_ROOT)\host-win32\ppu\lib\gcc\ppu-lv2\4.1.1\include;</IncludePath>
+    <IncludePath>src;$(SCE_PS3_ROOT)\target\ppu\include;$(SCE_PS3_ROOT)\target\common\include;$(SCE_PS3_ROOT)\host-win32\sn\ppu\include;</IncludePath>
     <SourcePath>src;</SourcePath>
+    <ExecutablePath>$(SCE_PS3_ROOT)\host-win32\sn\bin;$(SCE_PS3_ROOT)\host-win32\ppu\bin;$(SCE_PS3_ROOT)\host-win32\spu\bin;$(SCE_PS3_ROOT)\host-win32\bin;$(SCE_PS3_ROOT)\host-win32\Cg\bin;$(SN_PS3_PATH)\bin;$(VCTargetsPath)\Platforms\PS3;$(PATH);</ExecutablePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|PS3'">
     <OutDir>$(SolutionDir)Bin\$(Platform)-$(Configuration)\</OutDir>
     <IntDir>Bin\$(Platform)-$(Configuration)\Intermediate\</IntDir>
-    <IncludePath>$(SCE_PS3_ROOT)\target\ppu\include;$(SCE_PS3_ROOT)\target\common\include;$(SCE_PS3_ROOT)\host-win32\ppu\lib\gcc\ppu-lv2\4.1.1\include;</IncludePath>
+    <IncludePath>src;$(SCE_PS3_ROOT)\target\ppu\include;$(SCE_PS3_ROOT)\target\common\include;$(SCE_PS3_ROOT)\host-win32\sn\ppu\include;</IncludePath>
     <SourcePath>src;</SourcePath>
+    <ExecutablePath>$(SCE_PS3_ROOT)\host-win32\sn\bin;$(SCE_PS3_ROOT)\host-win32\ppu\bin;$(SCE_PS3_ROOT)\host-win32\spu\bin;$(SCE_PS3_ROOT)\host-win32\bin;$(SCE_PS3_ROOT)\host-win32\Cg\bin;$(SN_PS3_PATH)\bin;$(VCTargetsPath)\Platforms\PS3;$(PATH);</ExecutablePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|PS3'">
     <ClCompile>
@@ -66,7 +68,6 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CppLanguageStd>Cpp11</CppLanguageStd>
       <FastMath>true</FastMath>
-      <AdditionalIncludeDirectories>$(SN_PS3_PATH)\ppu\include\sn;$(SCE_PS3_ROOT)\target\ppu\include;$(SCE_PS3_ROOT)\target\common\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>$(SCE_PS3_ROOT)\target\ppu\lib\libcgc.a;$(SCE_PS3_ROOT)\target\ppu\lib\PSGL\RSX\opt\libPSGLcgc.a;$(SN_PS3_PATH)\ppu\lib\sn\libsn.a;$(SCE_PS3_ROOT)\target\ppu\lib\PSGL\RSX\opt\libPSGL.a;$(SCE_PS3_ROOT)\target\ppu\lib\PSGL\RSX\opt\libPSGLU.a;$(SCE_PS3_ROOT)\target\ppu\lib\libm.a;$(SCE_PS3_ROOT)\target\ppu\lib\libusbd_stub.a;$(SCE_PS3_ROOT)\target\ppu\lib\libfs_stub.a;$(SCE_PS3_ROOT)\target\ppu\lib\libio_stub.a;$(SCE_PS3_ROOT)\target\ppu\lib\libsysutil_stub.a;$(SCE_PS3_ROOT)\target\ppu\lib\libdbgfont.a;$(SCE_PS3_ROOT)\target\ppu\lib\libresc_stub.a;$(SCE_PS3_ROOT)\target\ppu\lib\libgcm_cmd.a;$(SCE_PS3_ROOT)\target\ppu\lib\libgcm_sys_stub.a;$(SCE_PS3_ROOT)\target\ppu\lib\libsysmodule_stub.a;$(SCE_PS3_ROOT)\target\ppu\lib\libperf.a;%(AdditionalDependencies)</AdditionalDependencies>
@@ -79,10 +80,11 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CppLanguageStd>Cpp11</CppLanguageStd>
       <FastMath>true</FastMath>
-      <AdditionalIncludeDirectories>$(SN_PS3_PATH)\ppu\include\sn;$(SCE_PS3_ROOT)\target\ppu\include;$(SCE_PS3_ROOT)\target\common\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>$(SCE_PS3_ROOT)\target\ppu\lib\libcgc.a;$(SCE_PS3_ROOT)\target\ppu\lib\PSGL\RSX\opt\libPSGLcgc.a;$(SN_PS3_PATH)\ppu\lib\sn\libsn.a;$(SCE_PS3_ROOT)\target\ppu\lib\PSGL\RSX\opt\libPSGL.a;$(SCE_PS3_ROOT)\target\ppu\lib\PSGL\RSX\opt\libPSGLU.a;$(SCE_PS3_ROOT)\target\ppu\lib\libm.a;$(SCE_PS3_ROOT)\target\ppu\lib\libusbd_stub.a;$(SCE_PS3_ROOT)\target\ppu\lib\libfs_stub.a;$(SCE_PS3_ROOT)\target\ppu\lib\libio_stub.a;$(SCE_PS3_ROOT)\target\ppu\lib\libsysutil_stub.a;$(SCE_PS3_ROOT)\target\ppu\lib\libdbgfont.a;$(SCE_PS3_ROOT)\target\ppu\lib\libresc_stub.a;$(SCE_PS3_ROOT)\target\ppu\lib\libgcm_cmd.a;$(SCE_PS3_ROOT)\target\ppu\lib\libgcm_sys_stub.a;$(SCE_PS3_ROOT)\target\ppu\lib\libsysmodule_stub.a;$(SCE_PS3_ROOT)\target\ppu\lib\libperf.a;%(AdditionalDependencies)</AdditionalDependencies>
+      <InfoStripping>StripSymsAndDebug</InfoStripping>
+      <DataStripping>StripFuncs</DataStripping>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -90,6 +92,7 @@
     <ClCompile Include="src\Rendering\GraphicsContext.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Core\Core.h" />
     <ClInclude Include="src\Rendering\GraphicsContext.h" />
   </ItemGroup>
   <Import Condition="'$(ConfigurationType)' == 'Makefile' and Exists('$(VCTargetsPath)\Platforms\$(Platform)\SCE.Makefile.$(Platform).targets')" Project="$(VCTargetsPath)\Platforms\$(Platform)\SCE.Makefile.$(Platform).targets" />
