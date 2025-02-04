@@ -4,7 +4,15 @@
 
 namespace Rendering {
 
+    GraphicsContext* GraphicsContext::instance = nullptr;
+    
     GraphicsContext::GraphicsContext() {
+        if (instance != nullptr) {
+            DEBUG_PRINT("[GraphicsContext] Unable to start more than one instance of this class!")
+            return;
+        }
+        instance = this;
+        
         // Waiting for "Initialize(const unsigned int*, unsigned int)" to set up them...
         psglContext = nullptr;
         psglDevice = nullptr;
@@ -93,6 +101,8 @@ namespace Rendering {
 
         //Set the viewport
         glViewport(0, 0, viewportWidth, viewportHeight); //(Explicit conversion between uint to int)
+
+        glScissor(0, 0, viewportWidth, viewportHeight); //(Explicit conversion between uint to int)
     }
     
     bool GraphicsContext::IsVideoOutputReady() {
@@ -124,7 +134,7 @@ namespace Rendering {
         return 0;
     }
 
-    unsigned int GraphicsContext::GetBestVideoOutputMode(const unsigned int* wantedCellResolutionIDs, unsigned int wantedCellResolutionIDsCount) {
+    unsigned int GraphicsContext::GetBestVideoOutputMode(const unsigned int* wantedCellResolutionIDs, const unsigned int wantedCellResolutionIDsCount) {
         for (unsigned int i=0; i<wantedCellResolutionIDsCount; i++) {
             if (cellVideoOutGetResolutionAvailability(CELL_VIDEO_OUT_PRIMARY, wantedCellResolutionIDs[i], CELL_VIDEO_OUT_ASPECT_AUTO, 0)) {
                 return wantedCellResolutionIDs[i]; //Yay! a wanted resolution is available!

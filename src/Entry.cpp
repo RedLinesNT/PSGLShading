@@ -20,14 +20,14 @@ int main() {
 
     //Initialize the GraphicsContext
     Rendering::GraphicsContext* context = new Rendering::GraphicsContext();
-    bool initResult = context->Initialize(resolutions, sizeof(resolutions)/sizeof(resolutions[0]));
+    bool initResult = Rendering::GraphicsContext::Get()->Initialize(resolutions, sizeof(resolutions)/sizeof(resolutions[0]));
     if (!initResult) { return -1; } //Initialization failed, details have already been printed
     DEBUG_PRINT("[PSGLShading] Graphics Context has been initialized!")
 
     while (true) {
-        context->PreRender();
+        Rendering::GraphicsContext::Get()->PreRender();
         //TODO: Render context
-        context->PostRender();
+        Rendering::GraphicsContext::Get()->PostRender();
     }
     
     return 0; //Directly return into the XMB

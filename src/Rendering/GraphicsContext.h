@@ -63,6 +63,12 @@ namespace Rendering {
         void PostRender();
 
         // ---------------------------------------------------------------------------
+        // The current GraphicsContext instance running.
+        // ---------------------------------------------------------------------------
+        static inline GraphicsContext* Get() { return instance; }
+
+    private:
+        // ---------------------------------------------------------------------------
         //  Returns:
         //      True if the PlayStation3 output video is ready to be used.
         // ---------------------------------------------------------------------------
@@ -117,6 +123,11 @@ namespace Rendering {
         static unsigned int GetBestVideoOutputMode(const unsigned int* wantedCellResolutionIDs, unsigned int wantedCellResolutionIDsCount);
 
     private:
+        // ---------------------------------------------------------------------------
+        // The current GraphicsContext instance running.
+        // ---------------------------------------------------------------------------
+        static GraphicsContext* instance;
+        
         PSGLcontext* psglContext;
         PSGLdevice* psglDevice;
     };
