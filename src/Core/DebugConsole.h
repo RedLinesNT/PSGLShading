@@ -33,10 +33,6 @@ struct DebugConsoleInitOptions {
     // The scale of the DebugConsole.
     // ---------------------------------------------------------------------------
     float ConsoleScale = 0.25f;
-    // ---------------------------------------------------------------------------
-    // The scale of the DebugConsole's text.
-    // ---------------------------------------------------------------------------
-    float ConsoleTextScale = 0.25f;
 
     // ---------------------------------------------------------------------------
     // The DebugConsole's font color.
@@ -73,8 +69,11 @@ struct DebugConsoleInitOptions {
 class DebugConsole {
 public:
     DebugConsole(const DebugConsoleInitOptions& options);
+
+protected:
     ~DebugConsole();
 
+public:
     void Printf(const char* string, ...) const;
     void PrintfPut(const char* string, ...) const;
 
@@ -94,13 +93,19 @@ public:
     // ---------------------------------------------------------------------------
     // Update and render each DebugConsoles created.
     // ---------------------------------------------------------------------------
-    static void UpdateConsoles();
+    static void UpdateConsoles(float deltaTime);
+
+protected:
+    // ---------------------------------------------------------------------------
+    // Update this DebugConsole.
+    // ---------------------------------------------------------------------------
+    virtual void Update(float deltaTime);
 
 private:
     // ---------------------------------------------------------------------------
     // The "DebugConsoleInitOptions" given to create this DebugConsole.
     // ---------------------------------------------------------------------------
-    const DebugConsoleInitOptions& initOptions;
+    DebugConsoleInitOptions initOptions;
     // ---------------------------------------------------------------------------
     // The "CellDbgFontConsoleId" of this DebugConsole.
     // ---------------------------------------------------------------------------

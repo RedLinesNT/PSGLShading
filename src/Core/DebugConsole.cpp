@@ -10,6 +10,7 @@ DebugConsole::DebugConsole(const DebugConsoleInitOptions& options): initOptions(
     if (!hasBeenInitialized) {
         //Initialize CellDbg
         CellDbgFontConfig fontConfig;
+        fontConfig.bufSize = 512;
         fontConfig.screenWidth = GraphicsContext::GetViewportWidth();
         fontConfig.screenHeight = GraphicsContext::GetViewportHeight();
         
@@ -36,18 +37,20 @@ DebugConsole::~DebugConsole() {
     cellDbgFontConsoleClose(debugConsoleID);
 
     if (consoles.empty()) {
-        hasBeenInitialized = false;
         cellDbgFontExit();
+        hasBeenInitialized = false;
     }
 }
 
-void DebugConsole::UpdateConsoles() {
-    /*for (DebugConsole* console : consoles) {
-        console->Update();
-    }*/
-
+void DebugConsole::UpdateConsoles(float deltaTime) {
     cellDbgFontDraw();
+    
+    for (DebugConsole* console : consoles) {
+        console->Update(deltaTime);
+    }
 }
+
+void DebugConsole::Update(float deltaTime){}
 
 void DebugConsole::Enable() {
     isEnabled = true;
@@ -64,7 +67,7 @@ void DebugConsole::Clear() const {
 }
 
 void DebugConsole::Printf(const char* string, ...) const {
-    char temp_str[1024];
+    char temp_str[512];
     
     va_list arg_list;
     va_start(arg_list, string);
@@ -76,7 +79,7 @@ void DebugConsole::Printf(const char* string, ...) const {
 }
 
 void DebugConsole::PrintfPut(const char* string, ...) const {
-    char temp_str[1024];
+    char temp_str[512];
     
     va_list arg_list;
     va_start(arg_list, string);
