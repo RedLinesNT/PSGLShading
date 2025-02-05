@@ -13,11 +13,6 @@ struct DebugConsoleInitOptions {
     const char* Name;
     
     // ---------------------------------------------------------------------------
-    // The buffer size of the DebugConsole's font.
-    // ---------------------------------------------------------------------------
-    uint32_t BufferSize = 512;
-
-    // ---------------------------------------------------------------------------
     // The left position of the DebugConsole.
     // ---------------------------------------------------------------------------
     float PositionLeft = 0.1f;
@@ -38,6 +33,10 @@ struct DebugConsoleInitOptions {
     // The scale of the DebugConsole.
     // ---------------------------------------------------------------------------
     float ConsoleScale = 0.25f;
+    // ---------------------------------------------------------------------------
+    // The scale of the DebugConsole's text.
+    // ---------------------------------------------------------------------------
+    float ConsoleTextScale = 0.25f;
 
     // ---------------------------------------------------------------------------
     // The DebugConsole's font color.
@@ -54,8 +53,7 @@ struct DebugConsoleInitOptions {
     uint32_t Color = 0xFFFF64FF;
 
     // ---------------------------------------------------------------------------
-    // Should this DebugConsole use the DEBUG_PRINT macro when using
-    // "Printf" or "vPrintf"?
+    // Should this DebugConsole use the DEBUG_PRINT macro when using "Printf"?
     // ---------------------------------------------------------------------------
     bool DoDebugPrints = true;
 };
@@ -77,8 +75,8 @@ public:
     DebugConsole(const DebugConsoleInitOptions& options);
     ~DebugConsole();
 
-    void Printf(const char* string, ...);
-    void vPrintf(const char* string, va_list args);
+    void Printf(const char* string, ...) const;
+    void PrintfPut(const char* string, ...) const;
 
     // ---------------------------------------------------------------------------
     // Enable this DebugConsole.
@@ -91,47 +89,33 @@ public:
     // ---------------------------------------------------------------------------
     // Clear of the DebugConsole.
     // ---------------------------------------------------------------------------
-    void Clear();
+    void Clear() const;
 
     // ---------------------------------------------------------------------------
     // Update and render each DebugConsoles created.
     // ---------------------------------------------------------------------------
     static void UpdateConsoles();
-    
-protected:
-    virtual void Update() = 0;
 
 private:
     // ---------------------------------------------------------------------------
-    // Render this DebugConsoles.
+    // The "DebugConsoleInitOptions" given to create this DebugConsole.
     // ---------------------------------------------------------------------------
-    void Render();
-
-private:
+    const DebugConsoleInitOptions& initOptions;
     // ---------------------------------------------------------------------------
-    // The name of this DebugConsole. Will be used to DEBUG_PRINT.
-    // ---------------------------------------------------------------------------
-    const char* consoleName;
-    // ---------------------------------------------------------------------------
-    // The "CellDbgFontConsoleId" of this debug console.
+    // The "CellDbgFontConsoleId" of this DebugConsole.
     // ---------------------------------------------------------------------------
     CellDbgFontConsoleId debugConsoleID;
     // ---------------------------------------------------------------------------
     // Is this DebugConsole currently enabled?
     // ---------------------------------------------------------------------------
     bool isEnabled;
-    // ---------------------------------------------------------------------------
-    // Should this DebugConsole use the DEBUG_PRINT macro when using
-    // "Printf" or "vPrintf"?
-    // ---------------------------------------------------------------------------
-    bool doDebugPrints;
 
-    // ---------------------------------------------------------------------------
-    // Does the CELLDebugConsole has been internally initialized previously?
-    // ---------------------------------------------------------------------------
-    static bool hasBeenInitialized;
     // ---------------------------------------------------------------------------
     // List of every DebugConsoles created.
     // ---------------------------------------------------------------------------
     static std::list<DebugConsole*> consoles;
+    // ---------------------------------------------------------------------------
+    // Has "cellDbg" already been initialized?
+    // ---------------------------------------------------------------------------
+    static bool hasBeenInitialized;
 };
