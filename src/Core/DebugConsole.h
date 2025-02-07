@@ -97,7 +97,7 @@ public:
 
 protected:
     // ---------------------------------------------------------------------------
-    // Update this DebugConsole.
+    // Update this DebugConsole. Update is called each frame rendered.
     // ---------------------------------------------------------------------------
     virtual void Update(float deltaTime);
 

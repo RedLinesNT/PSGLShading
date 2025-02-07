@@ -6,10 +6,9 @@ class DeltaTime {
 public:
     inline DeltaTime() { lastTime = std::clock(); }
 
-    inline float GetDeltaTime() {
+    inline float UpdateDeltaTime() {
         std::clock_t currentTime = std::clock();
-        float deltaTime = ((float)(currentTime - lastTime) / (CLOCKS_PER_SEC / 1000)); //MS instead of SECS
-
+        float deltaTime = static_cast<float>(currentTime - lastTime) / CLOCKS_PER_SEC;
         lastTime = currentTime;
         
         return deltaTime;

@@ -30,6 +30,7 @@ DebugConsole::DebugConsole(const DebugConsoleInitOptions& options): initOptions(
     consoles.push_back(this);
 
     DEBUG_PRINT("[DebugConsole (%s)] Console created.\n", initOptions.Name)
+    this->Enable();
 }
 
 DebugConsole::~DebugConsole() {
@@ -46,7 +47,7 @@ void DebugConsole::UpdateConsoles(float deltaTime) {
     cellDbgFontDraw();
     
     for (DebugConsole* console : consoles) {
-        console->Update(deltaTime);
+        if (console->isEnabled) console->Update(deltaTime);
     }
 }
 

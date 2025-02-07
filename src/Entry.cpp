@@ -14,8 +14,8 @@
 // to display our application at.
 // ------------------------------------------
 constexpr unsigned int resolutions[] = {
-    CELL_VIDEO_OUT_RESOLUTION_1080,
-    CELL_VIDEO_OUT_RESOLUTION_720,
+    CELL_VIDEO_OUT_RESOLUTION_1080, //HDMI Only
+    CELL_VIDEO_OUT_RESOLUTION_720, //HDMI Only
 };
 
 int main() {
@@ -30,14 +30,15 @@ int main() {
     //Debug Consoles
     StatsConsole* statsConsole = StatsConsole::Create();
     
-    //Utility
-    DeltaTime deltaTime = DeltaTime();
+    //DeltaTime
+    DeltaTime* deltaTime = new DeltaTime();
 
     while (true) {
-        float delta = deltaTime.GetDeltaTime();
+        //Update the DeltaTime
+        float dt = deltaTime->UpdateDeltaTime();
         
         context->PreRender();
-            DebugConsole::UpdateConsoles(delta);
+            DebugConsole::UpdateConsoles(dt);
         
             //TODO: Render context
         context->PostRender();
