@@ -9,6 +9,10 @@
 #include "Core/DeltaTime.h"
 #include "Core/Debug/StatsConsole.h"
 
+#include <sys/process.h>
+
+SYS_PROCESS_PARAM(1001, 0x10000) //TODO: Figure out what is this...
+
 // ------------------------------------------
 // Our "priority-ordered" list of resolutions
 // to display our application at.

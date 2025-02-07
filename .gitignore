@@ -3,6 +3,11 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
+# Generated HDD Packer files
+[Tt]ools/HDD Package Packer/working/
+[Tt]ools/HDD Package Packer/*.pkg
+[Tt]ools/HDD Package Packer/BuildOutput.txt
+
 # User-specific files
 *.rsuser
 *.suo

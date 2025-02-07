@@ -76,7 +76,7 @@ void DebugConsole::Printf(const char* string, ...) const {
     va_end(arglist);
 
     cellDbgFontConsolePrintf(debugConsoleID, temp_str);
-    if (initOptions.DoDebugPrints) DEBUG_PRINT("[DebugConsole (%s)] %s\n", initOptions.Name, temp_str)
+    if (initOptions.DoDebugPrints) DEBUG_PRINT("[DebugConsole (%s)] %s\n", initOptions.Name, temp_str);
 }
 
 void DebugConsole::PrintfPut(const char* string, ...) const {
@@ -89,7 +89,7 @@ void DebugConsole::PrintfPut(const char* string, ...) const {
 
     cellDbgFontPuts(initOptions.PositionLeft, initOptions.PositionTop,
                     initOptions.ConsoleScale, initOptions.Color, temp_str);
-    if (initOptions.DoDebugPrints) DEBUG_PRINT("[DebugConsole (%s)] %s\n", initOptions.Name, temp_str)
+    if (initOptions.DoDebugPrints) DEBUG_PRINT("[DebugConsole (%s)] %s\n", initOptions.Name, temp_str);
 }
 
 

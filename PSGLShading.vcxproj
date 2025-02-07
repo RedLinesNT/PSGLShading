@@ -48,15 +48,15 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|PS3'">
-    <OutDir>$(SolutionDir)Bin\$(Platform)-$(Configuration)\</OutDir>
-    <IntDir>Bin\$(Platform)-$(Configuration)\Intermediate\</IntDir>
+    <OutDir>$(SolutionDir)bin\$(Platform)-$(Configuration)\</OutDir>
+    <IntDir>bin\$(Platform)-$(Configuration)\Intermediate\</IntDir>
     <IncludePath>src;$(SCE_PS3_ROOT)\target\ppu\include;$(SCE_PS3_ROOT)\target\common\include;$(SCE_PS3_ROOT)\host-win32\sn\ppu\include;</IncludePath>
     <SourcePath>src;</SourcePath>
     <ExecutablePath>$(SCE_PS3_ROOT)\host-win32\sn\bin;$(SCE_PS3_ROOT)\host-win32\ppu\bin;$(SCE_PS3_ROOT)\host-win32\spu\bin;$(SCE_PS3_ROOT)\host-win32\bin;$(SCE_PS3_ROOT)\host-win32\Cg\bin;$(SN_PS3_PATH)\bin;$(VCTargetsPath)\Platforms\PS3;$(PATH);</ExecutablePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|PS3'">
-    <OutDir>$(SolutionDir)Bin\$(Platform)-$(Configuration)\</OutDir>
-    <IntDir>Bin\$(Platform)-$(Configuration)\Intermediate\</IntDir>
+    <OutDir>$(SolutionDir)bin\$(Platform)-$(Configuration)\</OutDir>
+    <IntDir>bin\$(Platform)-$(Configuration)\Intermediate\</IntDir>
     <IncludePath>src;$(SCE_PS3_ROOT)\target\ppu\include;$(SCE_PS3_ROOT)\target\common\include;$(SCE_PS3_ROOT)\host-win32\sn\ppu\include;</IncludePath>
     <SourcePath>src;</SourcePath>
     <ExecutablePath>$(SCE_PS3_ROOT)\host-win32\sn\bin;$(SCE_PS3_ROOT)\host-win32\ppu\bin;$(SCE_PS3_ROOT)\host-win32\spu\bin;$(SCE_PS3_ROOT)\host-win32\bin;$(SCE_PS3_ROOT)\host-win32\Cg\bin;$(SN_PS3_PATH)\bin;$(VCTargetsPath)\Platforms\PS3;$(PATH);</ExecutablePath>
