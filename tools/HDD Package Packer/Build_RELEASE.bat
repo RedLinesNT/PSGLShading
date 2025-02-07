@@ -1,7 +1,7 @@
+@echo off
+
 echo The project must be compiled in RELEASE mode!
 echo Creating HDD Package file...
-
-@echo off
 
 setlocal
 

@@ -22,8 +22,34 @@ constexpr unsigned int resolutions[] = {
     CELL_VIDEO_OUT_RESOLUTION_720, //HDMI Only
 };
 
+// ---------------------------------------------------------------------------
+// Will be set to true if the user or PlayStation3 is trying to
+// close/shutdown this application.
+// ---------------------------------------------------------------------------
+static bool ShouldClose = false;
+
+// ---------------------------------------------------------------------------
+// Handle some specific CELL's callbacks.
+// ---------------------------------------------------------------------------
+// Remarks:
+//      Only used to exit the application's "while(true)" loop.
+//      If this method isn't called to stop the application from running,
+//      the PlayStation3 will freeze upon trying to close the app, then
+//      forcefully reboot itself.
+// ---------------------------------------------------------------------------
+static void HandleCELLCloseCallback(uint64_t status, uint64_t param, void* userdata) {
+    (void)param;
+    (void)userdata;
+
+    if (status == CELL_SYSUTIL_REQUEST_EXITGAME) {
+        ShouldClose = true;
+        DEBUG_PRINT("[PSGLShading] CELL_SYSUTIL_REQUEST_EXITGAME Callback received! Shutting down...\n")
+    }
+}
+
 int main() {
     sys_spu_initialize(6, 1); //Setup SPUs
+    cellSysutilRegisterCallback(0, HandleCELLCloseCallback, nullptr); //Setup shutdown callback (SLOT 0)
 
     //Initialize the GraphicsContext
     GraphicsContext* context = new GraphicsContext();
@@ -37,9 +63,9 @@ int main() {
     //DeltaTime
     DeltaTime* deltaTime = new DeltaTime();
 
-    while (true) {
-        //Update the DeltaTime
-        float dt = deltaTime->UpdateDeltaTime();
+    while (!ShouldClose) {
+        cellSysutilCheckCallback(); //Check for incoming system's callbacks
+        float dt = deltaTime->UpdateDeltaTime(); //Update the DeltaTime
         
         context->PreRender();
             DebugConsole::UpdateConsoles(dt);
@@ -50,6 +76,8 @@ int main() {
     
     delete statsConsole;
     context->Dispose();
+    
+    cellSysutilUnregisterCallback(0); //Unregister the shutdown callback (SLOT 0)
     
     return 0; //Directly return into the XMB
 }

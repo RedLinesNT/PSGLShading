@@ -1,7 +1,7 @@
+@echo off
+
 echo The project must be compiled in DEBUG mode!
 echo Creating HDD Package file...
-
-@echo off
 
 setlocal
 
