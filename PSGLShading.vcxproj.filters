@@ -3,8 +3,16 @@
   <ItemGroup>
     <ClCompile Include="src\Entry.cpp" />
     <ClCompile Include="src\Rendering\GraphicsContext.cpp" />
+    <ClCompile Include="src\Core\DebugConsole.cpp" />
+    <ClCompile Include="src\Core\Debug\StatsConsole.cpp" />
+    <ClCompile Include="src\Core\CELLCallbackHelpers.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Rendering\GraphicsContext.h" />
+    <ClInclude Include="src\Core\Core.h" />
+    <ClInclude Include="src\Core\DebugConsole.h" />
+    <ClInclude Include="src\Core\Debug\StatsConsole.h" />
+    <ClInclude Include="src\Core\DeltaTime.h" />
+    <ClInclude Include="src\Core\CELLCallbackHelpers.h" />
   </ItemGroup>
 </Project>
