@@ -1,27 +1,21 @@
 ﻿#include "GraphicsContext.h"
 #include "Core/Core.h"
 
-GraphicsContext* GraphicsContext::instance = nullptr;
-    
 GraphicsContext::GraphicsContext() {
-    if (instance != nullptr) {
-        DEBUG_PRINT("[GraphicsContext] Unable to start more than one instance of this class!")
-        return;
-    }
-    instance = this;
-    
-    // Waiting for "Initialize(const unsigned int*, unsigned int)" to set up them...
     psglContext = nullptr;
     psglDevice = nullptr;
     viewportWidth = 0;
     viewportHeight = 0;
+    isVSyncEnabled = false;
 }
+
+GraphicsContext::~GraphicsContext() = default;
 
 bool GraphicsContext::Initialize(const unsigned int* cellResolutionIDs, unsigned int numResolutions) {
     // Wait for the PlayStation3's video output to be ready...
-    if (!IsVideoOutputReady()) DEBUG_PRINT("[GraphicsContext] System's video output not available, waiting...\n")
+    if (!IsVideoOutputReady()) DEBUG_PRINT("[Renderer] System's video output not available, waiting...\n")
     while (!IsVideoOutputReady()) {} //Wait...
-    DEBUG_PRINT("[GraphicsContext] System's video output ready!\n")
+    DEBUG_PRINT("[Renderer] System's video output ready!\n")
 
     PSGLinitOptions glInitOptions;
     glInitOptions.enable = PSGL_INIT_MAX_SPUS | PSGL_INIT_INITIALIZE_SPUS | PSGL_INIT_HOST_MEMORY_SIZE; //Options we'd like to tweak
@@ -39,7 +33,7 @@ bool GraphicsContext::Initialize(const unsigned int* cellResolutionIDs, unsigned
     //Find the best resolution available from what we have
     unsigned int bestResolutionID = GetBestVideoOutputMode(cellResolutionIDs, numResolutions);
     if (bestResolutionID == 0) {
-        DEBUG_PRINT("[GraphicsContext] Unable to find any video mode available amongst the '%u' modes given!\n", numResolutions)
+        DEBUG_PRINT("[Renderer] Unable to find any video mode available amongst the '%u' modes given!\n", numResolutions)
         return false;
     }
 
@@ -47,7 +41,7 @@ bool GraphicsContext::Initialize(const unsigned int* cellResolutionIDs, unsigned
     unsigned int targetWidth = 0;
     unsigned int targetHeight = 0;
     GetResolutionFromCellResolutionID(bestResolutionID, targetWidth, targetHeight);
-    DEBUG_PRINT("[GraphicsContext] Requested resolution '%ux%u' will be used...\n", targetWidth, targetHeight)
+    DEBUG_PRINT("[Renderer] Target resolution '%ux%u'\n", targetWidth, targetHeight)
 
     //Create the PSGLDevice initialization parameters
     PSGLdeviceParameters params;
@@ -80,12 +74,13 @@ void GraphicsContext::Dispose() const {
     psglDestroyContext(psglContext);
     psglDestroyDevice(psglDevice);
     psglExit();
-
-    DEBUG_PRINT("[GraphicsContext] Graphics Context has been disposed!\n")
 }
 
 void GraphicsContext::PreRender() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+
+    if (isVSyncEnabled) glEnable(GL_VSYNC_SCE);
+    else glDisable(GL_VSYNC_SCE);
 }
 
 void GraphicsContext::PostRender() {
@@ -126,7 +121,7 @@ int GraphicsContext::GetResolutionFromCellResolutionID(unsigned int cellResoluti
         default: break;
     }
 
-    DEBUG_PRINT("[GraphicsContext] ResolutionID '%u' is invalid or unsupported!\n'", cellResolutionID)
+    DEBUG_PRINT("[Renderer] CellVideoOutResolutionId '%u' is invalid or unsupported!\n'", cellResolutionID)
     return 0;
 }
 

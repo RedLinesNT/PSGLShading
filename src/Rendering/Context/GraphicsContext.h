@@ -8,8 +8,11 @@
 // life-time.
 // ---------------------------------------------------
 class GraphicsContext {
-public:
+    friend class Renderer;
+    
+private:
     GraphicsContext();
+    ~GraphicsContext();
 
     // ---------------------------------------------------------------------------
     // Initialize and set up the Graphics Context
@@ -60,20 +63,6 @@ public:
     // ---------------------------------------------------------------------------
     void PostRender();
 
-    // ---------------------------------------------------------------------------
-    // The current GraphicsContext instance running.
-    // ---------------------------------------------------------------------------
-    static inline GraphicsContext* Get() { return instance; }
-    // ---------------------------------------------------------------------------
-    // Returns the width of the main viewport created.
-    // ---------------------------------------------------------------------------
-    static inline unsigned int GetViewportWidth() { return instance->viewportWidth; }
-    // ---------------------------------------------------------------------------
-    // Returns the height of the main viewport created.
-    // ---------------------------------------------------------------------------
-    static inline unsigned int GetViewportHeight() { return instance->viewportHeight; }
-
-private:
     // ---------------------------------------------------------------------------
     //  Returns:
     //      True if the PlayStation3 output video is ready to be used.
@@ -129,11 +118,6 @@ private:
     static unsigned int GetBestVideoOutputMode(const unsigned int* wantedCellResolutionIDs, unsigned int wantedCellResolutionIDsCount);
 
 private:
-    // ---------------------------------------------------------------------------
-    // The current GraphicsContext instance running.
-    // ---------------------------------------------------------------------------
-    static GraphicsContext* instance;
-    
     PSGLcontext* psglContext;
     PSGLdevice* psglDevice;
 
@@ -145,4 +129,9 @@ private:
     // The height of the main viewport created.
     // ---------------------------------------------------------------------------
     unsigned int viewportHeight;
+
+    // ---------------------------------------------------------------------------
+    // Is the V-Sync (Vertical Synchronization) active?
+    // ---------------------------------------------------------------------------
+    bool isVSyncEnabled;
 };

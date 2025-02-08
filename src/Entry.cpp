@@ -10,7 +10,7 @@
 #include "Core/DeltaTime.h"
 #include "Core/Debug/StatsConsole.h"
 #include "Core/Util/CELLCallbackHelpers.h"
-#include "Rendering/Context/GraphicsContext.h"
+#include "Rendering/Renderer.h"
 
 //TODO: Figure out what is this...
 SYS_PROCESS_PARAM(1001, 0x10000)
@@ -25,16 +25,14 @@ constexpr unsigned int resolutions[] = {
 };
 
 int main() {
-    sys_spu_initialize(6, 1); //Setup SPUs
+    sys_spu_initialize(6, 1); //Setup SPUs (1 RAW SPU FOR PSGL)
     
     //Bind callbacks
     CELLCallbackHelpers::BindCallbacks();
     
-    //Initialize the GraphicsContext
-    GraphicsContext* context = new GraphicsContext();
-    bool initResult = context->Initialize(resolutions, sizeof(resolutions)/sizeof(resolutions[0]));
+    //Initialize the Renderer
+    bool initResult = Renderer::Initialize(resolutions, sizeof(resolutions)/sizeof(resolutions[0]));
     if (!initResult) { return -1; } //Initialization failed, details have already been printed
-    DEBUG_PRINT("[PSGLShading] Graphics Context has been initialized!\n")
     
     //Debug Consoles
     StatsConsole* statsConsole = StatsConsole::Create();
@@ -42,19 +40,20 @@ int main() {
     //DeltaTime
     DeltaTime* deltaTime = new DeltaTime();
 
+    Renderer::SetVSync(true);
+
     while (!CELLCallbackHelpers::HasReceivedCloseCallback()) {
         CELLCallbackHelpers::CheckIncomingCallbacks();
         float dt = deltaTime->UpdateDeltaTime(); //Update the DeltaTime
         
-        context->PreRender();
+        Renderer::PreRender();
             DebugConsole::UpdateConsoles(dt);
-        
-            //TODO: Render context
-        context->PostRender();
+            Renderer::Update(dt);
+        Renderer::PostRender();
     }
     
     delete statsConsole;
-    context->Dispose();
+    Renderer::Shutdown();
     
     CELLCallbackHelpers::UnbindCallbacks();
     

@@ -1,7 +1,7 @@
 ﻿#include "DebugConsole.h"
 
 #include "Core.h"
-#include "Rendering/Context/GraphicsContext.h"
+#include "Rendering/Renderer.h"
 
 std::list<DebugConsole*> DebugConsole::consoles;
 bool DebugConsole::hasBeenInitialized = false;
@@ -11,8 +11,8 @@ DebugConsole::DebugConsole(const DebugConsoleInitOptions& options): initOptions(
         //Initialize CellDbg
         CellDbgFontConfig fontConfig;
         fontConfig.bufSize = 512;
-        fontConfig.screenWidth = GraphicsContext::GetViewportWidth();
-        fontConfig.screenHeight = GraphicsContext::GetViewportHeight();
+        fontConfig.screenWidth = Renderer::GetViewportWidth();
+        fontConfig.screenHeight = Renderer::GetViewportHeight();
         
         cellDbgFontInit(&fontConfig);
         hasBeenInitialized = true;

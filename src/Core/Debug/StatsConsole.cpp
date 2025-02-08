@@ -1,7 +1,7 @@
 ﻿#include "StatsConsole.h"
 
 #include "Core/Util/CELLCallbackHelpers.h"
-#include "Rendering/Context/GraphicsContext.h"
+#include "Rendering/Renderer.h"
 
 StatsConsole* StatsConsole::Create() {
     DebugConsoleInitOptions options;
@@ -33,7 +33,8 @@ void StatsConsole::Update(float deltaTime) {
     }
 
     //Print the final result of everything
-    this->PrintfPut("%ux%u (%.1f FPS)", GraphicsContext::GetViewportWidth(), GraphicsContext::GetViewportHeight(), framerate);
+    this->PrintfPut("%ux%u (%.1f FPS - VSYNC: %s)",
+            Renderer::GetViewportWidth(), Renderer::GetViewportHeight(), framerate, Renderer::IsVSyncEnabled() ? "ON" : "OFF");
     this->PrintfPut("\nDT: %.5f", deltaTime);
     
     this->PrintfPut("\n\nXMB opened? %s", CELLCallbackHelpers::IsTheXMBOpen() ? "true" : "false");
