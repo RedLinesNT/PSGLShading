@@ -1,7 +1,7 @@
 ﻿#include "DebugConsole.h"
 
 #include "Core.h"
-#include "Rendering/GraphicsContext.h"
+#include "Rendering/Context/GraphicsContext.h"
 
 std::list<DebugConsole*> DebugConsole::consoles;
 bool DebugConsole::hasBeenInitialized = false;

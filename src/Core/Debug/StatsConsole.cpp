@@ -1,15 +1,16 @@
 ﻿#include "StatsConsole.h"
 
 #include "Core/Util/CELLCallbackHelpers.h"
+#include "Rendering/Context/GraphicsContext.h"
 
 StatsConsole* StatsConsole::Create() {
     DebugConsoleInitOptions options;
     options.Name = "StatsConsole";
-    options.PositionLeft = 0.0025f;
-    options.PositionTop = 0.0025f;
+    options.PositionLeft = 0.0f;
+    options.PositionTop = 0.0f;
     options.ConsoleWidth = 20;
     options.ConsoleHeight = 10;
-    options.ConsoleScale = 1.0f;
+    options.ConsoleScale = 0.9f;
     options.Color = 0xFFFFFFFF;
     options.DoDebugPrints = false;
     
@@ -32,11 +33,10 @@ void StatsConsole::Update(float deltaTime) {
     }
 
     //Print the final result of everything
-    this->PrintfPut("Framerate: %.1f\n"
-                    "DT: %.5f",
-                    framerate, deltaTime);
-
-    this->PrintfPut("\n\nXMB opened? %s\n", CELLCallbackHelpers::IsTheXMBOpen() ? "true" : "false");
+    this->PrintfPut("%ux%u (%.1f FPS)", GraphicsContext::GetViewportWidth(), GraphicsContext::GetViewportHeight(), framerate);
+    this->PrintfPut("\nDT: %.5f", deltaTime);
+    
+    this->PrintfPut("\n\nXMB opened? %s", CELLCallbackHelpers::IsTheXMBOpen() ? "true" : "false");
     
     updateTimeElapsed += deltaTime;
 }

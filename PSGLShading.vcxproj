@@ -127,7 +127,42 @@
       <LinkCompiled>true</LinkCompiled>
     </ClCompile>
     <ClCompile Include="src\Entry.cpp" />
-    <ClCompile Include="src\Rendering\GraphicsContext.cpp" />
+    <ClCompile Include="src\Rendering\Context\GraphicsContext.cpp">
+      <ObjectFileName>bin\PS3-Debug\Intermediate\%(Filename).o</ObjectFileName>
+      <AdditionalIncludeDirectories>.</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_DEBUG;__CELL_ASSERT__;__PS3__;;;</PreprocessorDefinitions>
+      <NoStdInc>false</NoStdInc>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <InlineFunctionDebug>false</InlineFunctionDebug>
+      <MsErrors>true</MsErrors>
+      <Warnings>GenerateWarnings</Warnings>
+      <TreatMessagesasErrors>ReportedErrors</TreatMessagesasErrors>
+      <PchOverride>false</PchOverride>
+      <Callprof>false</Callprof>
+      <OptimizationLevel>Level0</OptimizationLevel>
+      <FastMath>true</FastMath>
+      <RelaxAlias>Default</RelaxAlias>
+      <Branchless>Branchless0</Branchless>
+      <AssumeCorrectAlignment>Default</AssumeCorrectAlignment>
+      <AssumeCorrectSign>false</AssumeCorrectSign>
+      <NoTocRestore>Default</NoTocRestore>
+      <InitializeBss>Bss1</InitializeBss>
+      <FltConst>false</FltConst>
+      <OmlPadding>false</OmlPadding>
+      <CppLanguageStd>Cpp11</CppLanguageStd>
+      <ExceptionsAndRtti>NoExceptsNoRtti</ExceptionsAndRtti>
+      <CharUnsigned>false</CharUnsigned>
+      <SingleConst>false</SingleConst>
+      <CompileAs>Default</CompileAs>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <Distributable>true</Distributable>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderOutputFile>bin\PS3-Debug\Intermediate\PSGLShading.pch</PrecompiledHeaderOutputFile>
+      <AdditionalOptions>/FI"C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\\Platforms\PS3\PlatformToolsets\SNC\ps3snc_intellisense.h" </AdditionalOptions>
+      <TrackerLogDirectory>bin\PS3-Debug\Intermediate\PSGLShading.tlog\</TrackerLogDirectory>
+      <MinimalRebuildFromTracking>true</MinimalRebuildFromTracking>
+      <LinkCompiled>true</LinkCompiled>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Core\Core.h" />
@@ -135,7 +170,7 @@
     <ClInclude Include="src\Core\Debug\StatsConsole.h" />
     <ClInclude Include="src\Core\DeltaTime.h" />
     <ClInclude Include="src\Core\Util\CELLCallbackHelpers.h" />
-    <ClInclude Include="src\Rendering\GraphicsContext.h" />
+    <ClInclude Include="src\Rendering\Context\GraphicsContext.h" />
   </ItemGroup>
   <Import Condition="'$(ConfigurationType)' == 'Makefile' and Exists('$(VCTargetsPath)\Platforms\$(Platform)\SCE.Makefile.$(Platform).targets')" Project="$(VCTargetsPath)\Platforms\$(Platform)\SCE.Makefile.$(Platform).targets" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

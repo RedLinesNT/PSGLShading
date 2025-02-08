@@ -5,12 +5,12 @@
 #include <sys/spu_initialize.h>
 #include <sys/process.h>
 
-#include "Rendering/GraphicsContext.h"
 #include "Core/Core.h"
 #include "Core/DebugConsole.h"
 #include "Core/DeltaTime.h"
 #include "Core/Debug/StatsConsole.h"
 #include "Core/Util/CELLCallbackHelpers.h"
+#include "Rendering/Context/GraphicsContext.h"
 
 //TODO: Figure out what is this...
 SYS_PROCESS_PARAM(1001, 0x10000)
