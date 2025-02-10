@@ -89,7 +89,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\DebugConsole.cpp" />
-    <ClCompile Include="src\Core\Debug\StatsConsole.cpp" />
     <ClCompile Include="src\Core\Util\CELLCallbackHelpers.cpp">
       <ObjectFileName>bin\PS3-Debug\Intermediate\%(Filename).o</ObjectFileName>
       <AdditionalIncludeDirectories>.</AdditionalIncludeDirectories>
@@ -127,6 +126,8 @@
       <LinkCompiled>true</LinkCompiled>
     </ClCompile>
     <ClCompile Include="src\Entry.cpp" />
+    <ClCompile Include="src\Input\Pad.cpp" />
+    <ClCompile Include="src\Input\PadUtility.cpp" />
     <ClCompile Include="src\Rendering\Context\GraphicsContext.cpp">
       <ObjectFileName>bin\PS3-Debug\Intermediate\%(Filename).o</ObjectFileName>
       <AdditionalIncludeDirectories>.</AdditionalIncludeDirectories>
@@ -163,15 +164,18 @@
       <MinimalRebuildFromTracking>true</MinimalRebuildFromTracking>
       <LinkCompiled>true</LinkCompiled>
     </ClCompile>
+    <ClCompile Include="src\Rendering\Debug\StatsConsole.cpp" />
     <ClCompile Include="src\Rendering\Renderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Core\Core.h" />
     <ClInclude Include="src\Core\DebugConsole.h" />
-    <ClInclude Include="src\Core\Debug\StatsConsole.h" />
     <ClInclude Include="src\Core\DeltaTime.h" />
     <ClInclude Include="src\Core\Util\CELLCallbackHelpers.h" />
+    <ClInclude Include="src\Input\Pad.h" />
+    <ClInclude Include="src\Input\PadUtility.h" />
     <ClInclude Include="src\Rendering\Context\GraphicsContext.h" />
+    <ClInclude Include="src\Rendering\Debug\StatsConsole.h" />
     <ClInclude Include="src\Rendering\Renderer.h" />
   </ItemGroup>
   <Import Condition="'$(ConfigurationType)' == 'Makefile' and Exists('$(VCTargetsPath)\Platforms\$(Platform)\SCE.Makefile.$(Platform).targets')" Project="$(VCTargetsPath)\Platforms\$(Platform)\SCE.Makefile.$(Platform).targets" />

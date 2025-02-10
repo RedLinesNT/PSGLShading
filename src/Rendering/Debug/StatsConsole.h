@@ -6,6 +6,9 @@ public:
     StatsConsole(const DebugConsoleInitOptions& options);
     virtual ~StatsConsole() = default;
 
+    // ---------------------------------------------------------------------------
+    // Create a "StatsConsole" with default settings.
+    // ---------------------------------------------------------------------------
     static StatsConsole* Create();
 protected:
     void Update(float deltaTime) override;

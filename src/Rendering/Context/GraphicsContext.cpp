@@ -15,7 +15,7 @@ bool GraphicsContext::Initialize(const unsigned int* cellResolutionIDs, unsigned
     // Wait for the PlayStation3's video output to be ready...
     if (!IsVideoOutputReady()) DEBUG_PRINT("[Renderer] System's video output not available, waiting...\n")
     while (!IsVideoOutputReady()) {} //Wait...
-    DEBUG_PRINT("[Renderer] System's video output ready!\n")
+    DEBUG_PRINT("[Renderer] System's video output ready.\n")
 
     PSGLinitOptions glInitOptions;
     glInitOptions.enable = PSGL_INIT_MAX_SPUS | PSGL_INIT_INITIALIZE_SPUS | PSGL_INIT_HOST_MEMORY_SIZE; //Options we'd like to tweak
@@ -41,7 +41,7 @@ bool GraphicsContext::Initialize(const unsigned int* cellResolutionIDs, unsigned
     unsigned int targetWidth = 0;
     unsigned int targetHeight = 0;
     GetResolutionFromCellResolutionID(bestResolutionID, targetWidth, targetHeight);
-    DEBUG_PRINT("[Renderer] Target resolution '%ux%u'\n", targetWidth, targetHeight)
+    DEBUG_PRINT("[Renderer] Target resolution '%ux%u'.\n", targetWidth, targetHeight)
 
     //Create the PSGLDevice initialization parameters
     PSGLdeviceParameters params;
