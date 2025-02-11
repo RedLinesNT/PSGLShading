@@ -46,7 +46,7 @@ public:
     // Remarks:
     //      Should be called in between of "PreRender" and "PostRender".
     // ---------------------------------------------------------------------------
-    static void Update(float deltaTime);
+    static void Render(float deltaTime);
     // ---------------------------------------------------------------------------
     // Finishes up the current frame.
     // ---------------------------------------------------------------------------

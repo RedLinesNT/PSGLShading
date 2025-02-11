@@ -125,6 +125,7 @@
       <MinimalRebuildFromTracking>true</MinimalRebuildFromTracking>
       <LinkCompiled>true</LinkCompiled>
     </ClCompile>
+    <ClCompile Include="src\Entity\Transform.cpp" />
     <ClCompile Include="src\Entry.cpp" />
     <ClCompile Include="src\Input\Pad.cpp" />
     <ClCompile Include="src\Input\PadUtility.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="src\Core\DebugConsole.h" />
     <ClInclude Include="src\Core\DeltaTime.h" />
     <ClInclude Include="src\Core\Util\CELLCallbackHelpers.h" />
+    <ClInclude Include="src\Entity\Transform.h" />
     <ClInclude Include="src\Input\Pad.h" />
     <ClInclude Include="src\Input\PadUtility.h" />
     <ClInclude Include="src\Rendering\Context\GraphicsContext.h" />

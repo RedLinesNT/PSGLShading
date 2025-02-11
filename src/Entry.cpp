@@ -13,7 +13,7 @@
 #include "Input/PadUtility.h"
 #include "Rendering/Renderer.h"
 
-//TODO: Figure out what is this...
+//TODO: Figure out what this do...
 SYS_PROCESS_PARAM(1001, 0x10000)
 
 // ------------------------------------------
@@ -37,7 +37,7 @@ int main() {
     
     //Bind callbacks
     CELLCallbackHelpers::BindCallbacks();
-        
+    
     //Initialize the Renderer
     bool initResult = Renderer::Initialize(resolutions, sizeof(resolutions)/sizeof(resolutions[0]));
     if (!initResult) { return -1; } //Initialization failed, details have already been printed
@@ -53,8 +53,6 @@ int main() {
     //DeltaTime
     DeltaTime* deltaTime = new DeltaTime();
 
-    Renderer::SetVSync(true);
-
     while (!CELLCallbackHelpers::HasReceivedCloseCallback()) {
         CELLCallbackHelpers::CheckIncomingCallbacks();
         PadUtility::Update();
@@ -62,7 +60,7 @@ int main() {
         
         Renderer::PreRender();
             DebugConsole::UpdateConsoles(dt);
-            Renderer::Update(dt);
+            Renderer::Render(dt);
         Renderer::PostRender();
     }
     

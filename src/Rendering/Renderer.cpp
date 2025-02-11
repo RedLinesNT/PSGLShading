@@ -32,7 +32,7 @@ void Renderer::PreRender() {
     context->PreRender();
 }
 
-void Renderer::Update(float deltaTime) {
+void Renderer::Render(float deltaTime) {
     //TODO: Update registered Render-able objects?
 }
 
