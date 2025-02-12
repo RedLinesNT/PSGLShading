@@ -125,7 +125,6 @@
       <MinimalRebuildFromTracking>true</MinimalRebuildFromTracking>
       <LinkCompiled>true</LinkCompiled>
     </ClCompile>
-    <ClCompile Include="src\Entity\Transform.cpp" />
     <ClCompile Include="src\Entry.cpp" />
     <ClCompile Include="src\Input\Pad.cpp" />
     <ClCompile Include="src\Input\PadUtility.cpp" />
@@ -167,18 +166,20 @@
     </ClCompile>
     <ClCompile Include="src\Rendering\Debug\StatsConsole.cpp" />
     <ClCompile Include="src\Rendering\Renderer.cpp" />
+    <ClCompile Include="src\Rendering\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Core\Core.h" />
+    <ClInclude Include="src\Core\Core.hpp" />
     <ClInclude Include="src\Core\DebugConsole.h" />
-    <ClInclude Include="src\Core\DeltaTime.h" />
+    <ClInclude Include="src\Core\DeltaTime.hpp" />
     <ClInclude Include="src\Core\Util\CELLCallbackHelpers.h" />
-    <ClInclude Include="src\Entity\Transform.h" />
+    <ClInclude Include="src\Entity\Transform.hpp" />
     <ClInclude Include="src\Input\Pad.h" />
     <ClInclude Include="src\Input\PadUtility.h" />
     <ClInclude Include="src\Rendering\Context\GraphicsContext.h" />
     <ClInclude Include="src\Rendering\Debug\StatsConsole.h" />
     <ClInclude Include="src\Rendering\Renderer.h" />
+    <ClInclude Include="src\Rendering\Texture.h" />
   </ItemGroup>
   <Import Condition="'$(ConfigurationType)' == 'Makefile' and Exists('$(VCTargetsPath)\Platforms\$(Platform)\SCE.Makefile.$(Platform).targets')" Project="$(VCTargetsPath)\Platforms\$(Platform)\SCE.Makefile.$(Platform).targets" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

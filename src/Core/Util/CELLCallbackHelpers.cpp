@@ -1,5 +1,5 @@
 #include "CELLCallbackHelpers.h"
-#include "Core/Core.h"
+#include "Core/Core.hpp"
 
 enum E_CELL_CALLBACKS_ACTION_SLOTS : int {
     CELL_CLOSE_CALLBACK_HANDLER_SLOT = 0, //Shutdown

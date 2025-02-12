@@ -1,6 +1,6 @@
 ﻿#include "Renderer.h"
 
-#include "Core/Core.h"
+#include "Core/Core.hpp"
 
 GraphicsContext* Renderer::context = nullptr;
 

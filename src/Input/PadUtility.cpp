@@ -1,6 +1,6 @@
 #include "PadUtility.h"
 
-#include "Core/Core.h"
+#include "Core/Core.hpp"
 
 std::list<Pad*> PadUtility::pads;
 

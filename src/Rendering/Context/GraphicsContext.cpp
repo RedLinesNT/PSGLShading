@@ -1,5 +1,5 @@
 ﻿#include "GraphicsContext.h"
-#include "Core/Core.h"
+#include "Core/Core.hpp"
 
 GraphicsContext::GraphicsContext() {
     psglContext = nullptr;

@@ -1,6 +1,6 @@
 ﻿#include "DebugConsole.h"
 
-#include "Core.h"
+#include "Core.hpp"
 #include "Rendering/Renderer.h"
 
 std::list<DebugConsole*> DebugConsole::consoles;

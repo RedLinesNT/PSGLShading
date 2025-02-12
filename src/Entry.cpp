@@ -5,9 +5,9 @@
 #include <sys/spu_initialize.h>
 #include <sys/process.h>
 
-#include "Core/Core.h"
+#include "Core/Core.hpp"
 #include "Core/DebugConsole.h"
-#include "Core/DeltaTime.h"
+#include "Core/DeltaTime.hpp"
 #include "Rendering/Debug/StatsConsole.h"
 #include "Core/Util/CELLCallbackHelpers.h"
 #include "Input/PadUtility.h"
