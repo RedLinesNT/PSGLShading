@@ -1,4 +1,7 @@
 ﻿#pragma once
+#include <list>
+
+#include "Camera.h"
 #include "Context/GraphicsContext.h"
 
 // ---------------------------------------------------
@@ -55,6 +58,11 @@ public:
     //      graphics-related command.
     // ---------------------------------------------------------------------------
     static void PostRender();
+
+    // ---------------------------------------------------------------------------
+    // Add a Camera into the cameraStack.
+    // ---------------------------------------------------------------------------
+    static void AddCamera(Camera* camera);
     
     // ---------------------------------------------------------------------------
     // Returns the width of the main viewport created.
@@ -64,6 +72,10 @@ public:
     // Returns the height of the main viewport created.
     // ---------------------------------------------------------------------------
     static inline unsigned int GetViewportHeight() { return context->viewportHeight; }
+    // ---------------------------------------------------------------------------
+    // Returns the aspect ratio of the main viewport created.
+    // ---------------------------------------------------------------------------
+    static inline GLfloat GetAspectRatio() { return context->aspectRatio; }
     // ---------------------------------------------------------------------------
     // Is the V-Sync (Vertical Synchronization) active?
     // ---------------------------------------------------------------------------
@@ -75,4 +87,9 @@ public:
     
 private:
     static GraphicsContext* context;
+
+    // ---------------------------------------------------------------------------
+    // List containing every Cameras created.
+    // ---------------------------------------------------------------------------
+    static std::list<Camera*> cameraStack;
 };

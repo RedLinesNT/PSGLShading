@@ -7,6 +7,7 @@ GraphicsContext::GraphicsContext() {
     viewportWidth = 0;
     viewportHeight = 0;
     isVSyncEnabled = false;
+    aspectRatio = 0;
 }
 
 GraphicsContext::~GraphicsContext() = default;
@@ -55,6 +56,7 @@ bool GraphicsContext::Initialize(const unsigned int* cellResolutionIDs, unsigned
 
     psglDevice = psglCreateDeviceExtended(&params);
     psglContext = psglCreateContext();
+    aspectRatio = psglGetDeviceAspectRatio(psglDevice);
 
     psglMakeCurrent(psglContext, psglDevice);
     psglResetCurrentContext();

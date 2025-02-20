@@ -34,8 +34,9 @@ void Texture::CreateCheckerBoardTexture(unsigned int resolution, unsigned int ro
     
     unsigned int *texData = (unsigned int*)std::malloc(size);
     unsigned int *texPixels = texData;
-    bool flip = true; //flip is used to generate the CheckerBoard pattern
+    bool flip = true; //Used to generate the CheckerBoard pattern
 
+    //Generate our beautiful texture :)
     for (unsigned int i=0; i<resolution; i++) {
         for (unsigned int j=0; j<resolution; j++) {
             if (flip) *texPixels = rowsColor;
@@ -58,4 +59,10 @@ void Texture::CreateCheckerBoardTexture(unsigned int resolution, unsigned int ro
     std::free(texData);
 
     DEBUG_PRINT("[Texture (%s)] CheckerBoard texture created! (%ux%u - %u bytes)\n", name, width, height, size)
+}
+
+void Texture::Bind() const {
+    if (!hasData) return;
+    
+    glBindTexture(GL_TEXTURE_2D, texHandle);
 }

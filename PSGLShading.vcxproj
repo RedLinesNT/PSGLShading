@@ -128,6 +128,8 @@
     <ClCompile Include="src\Entry.cpp" />
     <ClCompile Include="src\Input\Pad.cpp" />
     <ClCompile Include="src\Input\PadUtility.cpp" />
+    <ClCompile Include="src\Rendering\Camera\Debug\CameraInfoConsole.cpp" />
+    <ClCompile Include="src\Rendering\Camera\PerspectiveCamera.cpp" />
     <ClCompile Include="src\Rendering\Context\GraphicsContext.cpp">
       <ObjectFileName>bin\PS3-Debug\Intermediate\%(Filename).o</ObjectFileName>
       <AdditionalIncludeDirectories>.</AdditionalIncludeDirectories>
@@ -176,6 +178,9 @@
     <ClInclude Include="src\Entity\Transform.hpp" />
     <ClInclude Include="src\Input\Pad.h" />
     <ClInclude Include="src\Input\PadUtility.h" />
+    <ClInclude Include="src\Rendering\Camera.h" />
+    <ClInclude Include="src\Rendering\Camera\Debug\CameraInfoConsole.h" />
+    <ClInclude Include="src\Rendering\Camera\PerspectiveCamera.h" />
     <ClInclude Include="src\Rendering\Context\GraphicsContext.h" />
     <ClInclude Include="src\Rendering\Debug\StatsConsole.h" />
     <ClInclude Include="src\Rendering\Renderer.h" />

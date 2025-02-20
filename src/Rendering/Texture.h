@@ -41,6 +41,11 @@ public:
     // ---------------------------------------------------------------------------
     void CreateCheckerBoardTexture(unsigned int resolution, unsigned int rowsColor, unsigned int colsColor);
 
+    // ---------------------------------------------------------------------------
+    // Bind this texture.
+    // ---------------------------------------------------------------------------
+    void Bind() const;
+
 private:
     // ---------------------------------------------------------------------------
     // The name of this texture.
