@@ -29,12 +29,25 @@ constexpr unsigned int resolutions[] = {
     CELL_VIDEO_OUT_RESOLUTION_1080, //HDMI Only
     CELL_VIDEO_OUT_RESOLUTION_720, //HDMI Only
 };
+PerspectiveCamera* worldCamera = nullptr;
 
 static void EnableVSyncTEST() {
     Renderer::SetVSync(true);
 }
 static void DisableVSyncTEST() {
     Renderer::SetVSync(false);
+}
+static void MoveWorldCameraFRONT() {
+    worldCamera->GetTransform().Position[2] += 0.1f;
+}
+static void MoveWorldCameraBACK() {
+    worldCamera->GetTransform().Position[2] -= 0.1f;
+}
+static void RotateWorldCameraX() {
+    worldCamera->GetTransform().Rotation[1] += 0.1f;
+}
+static void RotateWorldCameraY() {
+    worldCamera->GetTransform().Rotation[1] -= 0.1f;
 }
 
 int main() {
@@ -48,17 +61,19 @@ int main() {
     if (!initResult) { return -1; } //Initialization failed, details have already been printed
 
     //Camera
-    PerspectiveCamera* worldCamera = new PerspectiveCamera(60.0f, 0.1f, 800.0f);
+    //PerspectiveCamera* worldCamera = new PerspectiveCamera(60.0f, 0.1f, 800.0f); TODO: REVERT
+    worldCamera = new PerspectiveCamera(60.0f, 0.0f, 800.0f);
+    worldCamera->GetTransform().Position.setZ(5.0f);
     Renderer::AddCamera(worldCamera);
     
     //Setup Pads
     PadUtility::Initialize(PAD_PLAYER_EIGHT);
     PadUtility::GetPad(PAD_PLAYER_ONE).SetPressedFunc(E_PAD_BUTTONS::CROSS, EnableVSyncTEST); //TODO: REMOVE
     PadUtility::GetPad(PAD_PLAYER_ONE).SetPressedFunc(E_PAD_BUTTONS::CIRCLE, DisableVSyncTEST); //TODO: REMOVE
-    //PadUtility::GetPad(PAD_PLAYER_ONE).SetPressedFunc(E_PAD_BUTTONS::DPAD_UP, MoveWorldCameraUP); //TODO: REMOVE
-    //PadUtility::GetPad(PAD_PLAYER_ONE).SetPressedFunc(E_PAD_BUTTONS::DPAD_DOWN, MoveWorldCameraDOWN); //TODO: REMOVE
-    //PadUtility::GetPad(PAD_PLAYER_ONE).SetPressedFunc(E_PAD_BUTTONS::DPAD_LEFT, RotateWorldCameraX); //TODO: REMOVE
-    //PadUtility::GetPad(PAD_PLAYER_ONE).SetPressedFunc(E_PAD_BUTTONS::DPAD_RIGHT, RotateWorldCameraY); //TODO: REMOVE
+    PadUtility::GetPad(PAD_PLAYER_ONE).SetPressedFunc(E_PAD_BUTTONS::DPAD_UP, MoveWorldCameraFRONT); //TODO: REMOVE
+    PadUtility::GetPad(PAD_PLAYER_ONE).SetPressedFunc(E_PAD_BUTTONS::DPAD_DOWN, MoveWorldCameraBACK); //TODO: REMOVE
+    PadUtility::GetPad(PAD_PLAYER_ONE).SetPressedFunc(E_PAD_BUTTONS::DPAD_LEFT, RotateWorldCameraX); //TODO: REMOVE
+    PadUtility::GetPad(PAD_PLAYER_ONE).SetPressedFunc(E_PAD_BUTTONS::DPAD_RIGHT, RotateWorldCameraY); //TODO: REMOVE
     
     //Debug Consoles
     StatsConsole* statsConsole = StatsConsole::Create();

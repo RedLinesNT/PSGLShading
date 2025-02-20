@@ -29,7 +29,7 @@ void CameraInfoConsole::Update(float deltaTime) { //TODO: Modify this mess, this
                         pers->GetFieldOfView(), pers->GetFarPlane(), pers->GetNearPlane());
     }
 
-    this->PrintfPut("\nPOS: %.1f, %.1f, %1f",
+    this->PrintfPut("\nPOS: %.1f, %.1f, %.1f",
                     targetCamera->GetTransform().Position.getX().getAsFloat(),
                     targetCamera->GetTransform().Position.getY().getAsFloat(),
                     targetCamera->GetTransform().Position.getZ().getAsFloat());

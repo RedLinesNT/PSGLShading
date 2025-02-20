@@ -34,6 +34,20 @@ void Renderer::PreRender() {
     context->PreRender();
 }
 
+float* vertices = new float[12] {
+    15.0f, 15.0f, 0.0f, //01 - Top Right
+    15.0f, -15.0f, 0.0f, //02 - Bottom Right
+    -15.0f, -15.0f, 0.0f, // 03 - Bottom Left
+    -15.0f, 15.0f, 0.0f, //04 - Top Left
+};
+
+float* colors = new float[16] {
+    1.0f, 0.0f, 0.0f, 1.0f, //RED
+    0.0f, 1.0f, 0.0f, 1.0f, //GREEN
+    0.0f, 0.0f, 1.0f, 1.0f, //BLUE
+    1.0f, 1.0f, 0.0f, 1.0f, //YELLOW
+};
+
 void Renderer::Render(float deltaTime) {
     //I'll be using "gl"-easy methods rather than doing it
     //all by myself from scratch.
@@ -60,6 +74,27 @@ void Renderer::Render(float deltaTime) {
             glLoadIdentity();
             glLoadMatrixf((GLfloat*)&camera->GetTransform().GetLocalToWorld());
             glPushMatrix();
+        
+        //TODO: KMS
+        //glMatrixMode(GL_MODELVIEW); //TODO: Should probably remove matrix stuff from here
+        //glLoadIdentity();
+        //glPushMatrix();
+
+        glMultMatrixf((GLfloat*)&Matrix4::identity); //Object's Matrix4
+        
+        glDisable(GL_DEPTH_TEST);
+        glDisable(GL_TEXTURE_2D);
+        glDisable(GL_BLEND);
+        glCullFace(GL_FRONT_AND_BACK);
+    
+        glEnableClientState(GL_VERTEX_ARRAY);
+        glEnableClientState(GL_COLOR_ARRAY);
+        glVertexPointer(3, GL_FLOAT, 0, vertices);
+        glColorPointer(4, GL_FLOAT, 0, colors);
+        glDrawArrays(GL_QUADS, 0, 4);
+        glDisableClientState(GL_VERTEX_ARRAY);
+        glDisableClientState(GL_COLOR_ARRAY);
+        
 
         //TODO: for loop something here
         //TODO: Update registered Render-able objects?
