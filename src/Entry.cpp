@@ -49,6 +49,12 @@ static void RotateWorldCameraX() {
 static void RotateWorldCameraY() {
     worldCamera->GetTransform().Rotation[1] -= 0.1f;
 }
+static void WorldCameraUPFOV() {
+    worldCamera->SetFieldOfView(worldCamera->GetFieldOfView() + 2);
+}
+static void WorldCameraDOWNFOV() {
+    worldCamera->SetFieldOfView(worldCamera->GetFieldOfView() - 2);
+}
 
 int main() {
     sys_spu_initialize(6, 1); //Setup SPUs (1 RAW SPU FOR PSGL)
@@ -63,8 +69,7 @@ int main() {
     //Camera
     //PerspectiveCamera* worldCamera = new PerspectiveCamera(60.0f, 0.1f, 800.0f); TODO: REVERT
     worldCamera = new PerspectiveCamera(60.0f, 0.0f, 800.0f);
-    worldCamera->GetTransform().Position.setZ(5.0f);
-    Renderer::AddCamera(worldCamera);
+    worldCamera->GetTransform().Position.setZ(-5.0f);
     
     //Setup Pads
     PadUtility::Initialize(PAD_PLAYER_EIGHT);
@@ -74,6 +79,8 @@ int main() {
     PadUtility::GetPad(PAD_PLAYER_ONE).SetPressedFunc(E_PAD_BUTTONS::DPAD_DOWN, MoveWorldCameraBACK); //TODO: REMOVE
     PadUtility::GetPad(PAD_PLAYER_ONE).SetPressedFunc(E_PAD_BUTTONS::DPAD_LEFT, RotateWorldCameraX); //TODO: REMOVE
     PadUtility::GetPad(PAD_PLAYER_ONE).SetPressedFunc(E_PAD_BUTTONS::DPAD_RIGHT, RotateWorldCameraY); //TODO: REMOVE
+    PadUtility::GetPad(PAD_PLAYER_ONE).SetPressedFunc(E_PAD_BUTTONS::R1, WorldCameraUPFOV); //TODO: REMOVE
+    PadUtility::GetPad(PAD_PLAYER_ONE).SetPressedFunc(E_PAD_BUTTONS::L1, WorldCameraDOWNFOV); //TODO: REMOVE
     
     //Debug Consoles
     StatsConsole* statsConsole = StatsConsole::Create();
@@ -88,8 +95,8 @@ int main() {
         float dt = deltaTime->UpdateDeltaTime(); //Update the DeltaTime
         
         Renderer::PreRender();
-            DebugConsole::UpdateConsoles(dt);
             Renderer::Render(dt);
+            DebugConsole::UpdateConsoles(dt);
         Renderer::PostRender();
     }
     

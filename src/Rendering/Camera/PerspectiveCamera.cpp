@@ -11,9 +11,6 @@ PerspectiveCamera::PerspectiveCamera(float fov, float near, float far) : Camera(
 }
 
 void PerspectiveCamera::RecalculateProjectionMatrix() {
-    glMatrixMode(GL_PROJECTION);
-        glLoadIdentity();
-        gluPerspectivef(fieldOfView, Renderer::GetAspectRatio(), nearPlane, farPlane);
-
+    projectionMatrix = Matrix4::perspective(fieldOfView * (M_PI / 180.0f), Renderer::GetAspectRatio(), nearPlane, farPlane);
     needsRecalculateProjectionMatrix = false;
 }

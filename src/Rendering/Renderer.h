@@ -10,6 +10,8 @@
 // process of the application as a whole.
 // ---------------------------------------------------
 class Renderer {
+    friend class Camera;
+    
 public:
     Renderer() = delete;
 
@@ -58,11 +60,6 @@ public:
     //      graphics-related command.
     // ---------------------------------------------------------------------------
     static void PostRender();
-
-    // ---------------------------------------------------------------------------
-    // Add a Camera into the cameraStack.
-    // ---------------------------------------------------------------------------
-    static void AddCamera(Camera* camera);
     
     // ---------------------------------------------------------------------------
     // Returns the width of the main viewport created.
@@ -84,6 +81,16 @@ public:
     // Enable/Disable the V-Sync (Vertical Synchronization).
     // ---------------------------------------------------------------------------
     static inline void SetVSync(bool value) { context->isVSyncEnabled = value; }
+
+private:
+    // ---------------------------------------------------------------------------
+    // Add a Camera into the cameraStack.
+    // ---------------------------------------------------------------------------
+    static void AddCamera(Camera* camera);
+    // ---------------------------------------------------------------------------
+    // Remove a Camera from the cameraStack.
+    // ---------------------------------------------------------------------------
+    static void RemoveCamera(Camera* camera);
     
 private:
     static GraphicsContext* context;

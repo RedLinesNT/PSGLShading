@@ -38,4 +38,9 @@ void CameraInfoConsole::Update(float deltaTime) { //TODO: Modify this mess, this
                     targetCamera->GetTransform().Rotation.getX().getAsFloat(),
                     targetCamera->GetTransform().Rotation.getY().getAsFloat(),
                     targetCamera->GetTransform().Rotation.getZ().getAsFloat());
+
+    this->PrintfPut("\n\n\nSCALE: %.1f, %.1f, %.1f",
+                    targetCamera->GetTransform().Scale.getX().getAsFloat(),
+                    targetCamera->GetTransform().Scale.getY().getAsFloat(),
+                    targetCamera->GetTransform().Scale.getZ().getAsFloat());
 }

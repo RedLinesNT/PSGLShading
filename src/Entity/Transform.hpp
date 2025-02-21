@@ -10,6 +10,12 @@ public:
     Vector3 Rotation;
     Vector3 Scale;
 
+    Transform() : Position(0.0f, 0.0f, 0.0f), 
+                  Rotation(0.0f, 0.0f, 0.0f), 
+                  Scale(1.0f, 1.0f, 1.0f) {}
+    Transform(const Vector3& pos, const Vector3& rot, const Vector3& scl) : Position(pos), Rotation(rot), Scale(scl) {}
+
+    
     inline void Update() {
         //TODO: Cancel the update if nothing has been modified?
         localToWorld =  Matrix4::translation(Position) *
