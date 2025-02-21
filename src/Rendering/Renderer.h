@@ -1,8 +1,9 @@
 ﻿#pragma once
-#include <list>
 
-#include "Camera.h"
+#include <list>
 #include "Context/GraphicsContext.h"
+
+class Camera; //To stop the compiler from bitching
 
 // ---------------------------------------------------
 // Handle and give context-free access
