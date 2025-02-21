@@ -8,7 +8,7 @@ std::list<Camera*> Renderer::cameraStack;
 
 bool Renderer::Initialize(const unsigned int* cellResolutionIDs, unsigned int numResolutions) {
     if (context != nullptr) { //Already been initialized!
-        DEBUG_PRINT("[Renderer] Already been previously initialized! Restarting...");
+        DEBUG_PRINT("[Renderer] Already been previously initialized! Restarting...")
         Shutdown();
     }
 
@@ -66,6 +66,10 @@ void Renderer::Render(float deltaTime) {
         //Update the current camera first
         camera->GetTransform().Update();
 
+        //Retrieve the camera's matrices
+        Matrix4 projMatrix = camera->GetProjectionMatrix();
+        Matrix4 viewMatrix = -camera->GetViewMatrix();
+
         //TODO: REMOVE ONLY USED TO TEST A QUAD HERE
         testObjTrans->Rotation[0] += 1.0f * deltaTime;
         testObjTrans->Rotation[1] += 1.0f * deltaTime;
@@ -74,17 +78,17 @@ void Renderer::Render(float deltaTime) {
 
         //Projection Matrix (Camera)
         glMatrixMode(GL_PROJECTION);
-        glLoadMatrixf((GLfloat*)&camera->GetProjectionMatrix());
+        glLoadMatrixf((GLfloat*)&projMatrix);
 
         //View Matrix (Camera)
         glMatrixMode(GL_MODELVIEW);
-        glLoadMatrixf((GLfloat*)&camera->GetTransform().GetLocalToWorld());
+        glLoadMatrixf((GLfloat*)&viewMatrix);
 
         //Model Transform (of the test quad in this case)
         glMultMatrixf((GLfloat*)&testObjTrans->GetLocalToWorld());
         
         glDisable(GL_DEPTH_TEST);
-        glCullFace(GL_FRONT_AND_BACK);
+        glCullFace(GL_FRONT);
 
         //TODO: REMOVE ONLY USED TO TEST A QUAD HERE
         glEnableClientState(GL_VERTEX_ARRAY);

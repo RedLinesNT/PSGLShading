@@ -34,6 +34,21 @@ public:
     // Returns the Projection Matrix of this Camera.
     // ---------------------------------------------------------------------------
     inline Matrix4 GetProjectionMatrix() const { return projectionMatrix; }
+    // ---------------------------------------------------------------------------
+    // Calculate and give the View Matrix of this Camera.
+    // ---------------------------------------------------------------------------
+    // Remarks:
+    //      Calling this method will CALCULATE the View Matrix, avoid calling
+    //      it too many times for no reason.
+    //
+    //      The scale of this Camera's Transform isn't taken in account.
+    // ---------------------------------------------------------------------------
+    inline Matrix4 GetViewMatrix() const {
+        return Matrix4::rotationZ(-transform->Rotation.getZ()) * 
+                Matrix4::rotationY(-transform->Rotation.getY()) * 
+                Matrix4::rotationX(-transform->Rotation.getX()) *
+                Matrix4::translation(-transform->Position);
+    }
 protected:
     Transform* transform;
     E_CAMERA_TYPE type;

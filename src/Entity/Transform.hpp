@@ -19,7 +19,7 @@ public:
     inline void Update() {
         //TODO: Cancel the update if nothing has been modified?
         localToWorld =  Matrix4::translation(Position) *
-                        Matrix4::rotationX(Rotation[0]) * Matrix4::rotationX(Rotation[1]) * Matrix4::rotationX(Rotation[2]) *
+                        Matrix4::rotationX(Rotation.getX()) * Matrix4::rotationY(Rotation.getY()) * Matrix4::rotationZ(Rotation.getZ()) *
                         Matrix4::scale(Scale);
     }
 
