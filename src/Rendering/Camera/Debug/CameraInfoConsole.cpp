@@ -2,9 +2,7 @@
 
 #include "Rendering/Camera/PerspectiveCamera.h"
 
-CameraInfoConsole::CameraInfoConsole(const DebugConsoleInitOptions& options, Camera* camera) : targetCamera(camera), DebugConsole(options) {}
-
-CameraInfoConsole* CameraInfoConsole::Create(Camera* targetCamera) {
+CameraInfoConsole* CameraInfoConsole::Create() {
     DebugConsoleInitOptions options;
     options.Name = "CameraInfoConsole";
     options.PositionLeft = 0.7f;
@@ -15,32 +13,33 @@ CameraInfoConsole* CameraInfoConsole::Create(Camera* targetCamera) {
     options.Color = 0xFFFFFFFF;
     options.DoDebugPrints = false;
     
-    return new CameraInfoConsole(options, targetCamera);
+    return new CameraInfoConsole(options);
 }
 
-void CameraInfoConsole::Update(float deltaTime) { //TODO: Modify this mess, this ain't C# ffs
-    if (targetCamera == nullptr) return;
+CameraInfoConsole::CameraInfoConsole(const DebugConsoleInitOptions& options) : DebugConsole(options) {}
 
-    //TODO: What the fuck
-    PerspectiveCamera* pers = static_cast<PerspectiveCamera*>(targetCamera);
-    
-    if (pers != nullptr) {
+void CameraInfoConsole::Update(float deltaTime) { //TODO: Modify this mess
+    if (Camera::GetMainCamera() == nullptr) return;
+
+    //TODO: What the fuck, I'll regret this soon
+    if (Camera::GetMainCamera()->GetType() == E_CAMERA_TYPE::CAM_TYPE_PERSPECTIVE) {
+        PerspectiveCamera& pers = static_cast<PerspectiveCamera&>(*Camera::GetMainCamera());
         this->PrintfPut("FOV: %.1f / FAR: %.1f / NEAR: %.1f",
-                        pers->GetFieldOfView(), pers->GetFarPlane(), pers->GetNearPlane());
+                        pers.GetFieldOfView(), pers.GetFarPlane(), pers.GetNearPlane());
     }
 
     this->PrintfPut("\nPOS: %.1f, %.1f, %.1f",
-                    targetCamera->GetTransform().Position.getX().getAsFloat(),
-                    targetCamera->GetTransform().Position.getY().getAsFloat(),
-                    targetCamera->GetTransform().Position.getZ().getAsFloat());
+                    Camera::GetMainCamera()->GetTransform().Position.getX().getAsFloat(),
+                    Camera::GetMainCamera()->GetTransform().Position.getY().getAsFloat(),
+                    Camera::GetMainCamera()->GetTransform().Position.getZ().getAsFloat());
 
     this->PrintfPut("\n\nROT: %.1f, %.1f, %.1f",
-                    targetCamera->GetTransform().Rotation.getX().getAsFloat(),
-                    targetCamera->GetTransform().Rotation.getY().getAsFloat(),
-                    targetCamera->GetTransform().Rotation.getZ().getAsFloat());
+                    Camera::GetMainCamera()->GetTransform().Rotation.getX().getAsFloat(),
+                    Camera::GetMainCamera()->GetTransform().Rotation.getY().getAsFloat(),
+                    Camera::GetMainCamera()->GetTransform().Rotation.getZ().getAsFloat());
 
     this->PrintfPut("\n\n\nSCALE: %.1f, %.1f, %.1f",
-                    targetCamera->GetTransform().Scale.getX().getAsFloat(),
-                    targetCamera->GetTransform().Scale.getY().getAsFloat(),
-                    targetCamera->GetTransform().Scale.getZ().getAsFloat());
+                    Camera::GetMainCamera()->GetTransform().Scale.getX().getAsFloat(),
+                    Camera::GetMainCamera()->GetTransform().Scale.getY().getAsFloat(),
+                    Camera::GetMainCamera()->GetTransform().Scale.getZ().getAsFloat());
 }

@@ -30,6 +30,7 @@ public:
     Matrix4 GetViewMatrix() const;
     
     inline Transform& GetTransform() const { return *transform; }
+    inline E_CAMERA_TYPE GetType() const { return type; }
     // ---------------------------------------------------------------------------
     // Does this Camera need to recalculate its Projection Matrix.
     // ---------------------------------------------------------------------------
@@ -64,7 +65,8 @@ protected:
     // The Projection Matrix of this Camera.
     // ---------------------------------------------------------------------------
     Matrix4 projectionMatrix;
-    
+
+private:
     // ---------------------------------------------------------------------------
     // The main/active Camera. 
     // ---------------------------------------------------------------------------

@@ -84,7 +84,7 @@ int main() {
     
     //Debug Consoles
     StatsConsole* statsConsole = StatsConsole::Create();
-    CameraInfoConsole* worldCamConsole = CameraInfoConsole::Create(worldCamera);
+    CameraInfoConsole* mainCamConsole = CameraInfoConsole::Create();
     
     //DeltaTime
     DeltaTime* deltaTime = new DeltaTime();
@@ -101,7 +101,7 @@ int main() {
     }
     
     delete statsConsole;
-    delete worldCamConsole;
+    delete mainCamConsole;
     delete worldCamera;
     
     PadUtility::Dispose();
