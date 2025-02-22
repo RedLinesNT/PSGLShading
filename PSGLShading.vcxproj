@@ -128,6 +128,7 @@
     <ClCompile Include="src\Entry.cpp" />
     <ClCompile Include="src\Input\Pad.cpp" />
     <ClCompile Include="src\Input\PadUtility.cpp" />
+    <ClCompile Include="src\Rendering\Camera.cpp" />
     <ClCompile Include="src\Rendering\Camera\Debug\CameraInfoConsole.cpp" />
     <ClCompile Include="src\Rendering\Camera\PerspectiveCamera.cpp" />
     <ClCompile Include="src\Rendering\Context\GraphicsContext.cpp">

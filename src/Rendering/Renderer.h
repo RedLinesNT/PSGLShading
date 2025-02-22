@@ -82,22 +82,7 @@ public:
     // Enable/Disable the V-Sync (Vertical Synchronization).
     // ---------------------------------------------------------------------------
     static inline void SetVSync(bool value) { context->isVSyncEnabled = value; }
-
-private:
-    // ---------------------------------------------------------------------------
-    // Add a Camera into the cameraStack.
-    // ---------------------------------------------------------------------------
-    static void AddCamera(Camera* camera);
-    // ---------------------------------------------------------------------------
-    // Remove a Camera from the cameraStack.
-    // ---------------------------------------------------------------------------
-    static void RemoveCamera(Camera* camera);
     
 private:
     static GraphicsContext* context;
-
-    // ---------------------------------------------------------------------------
-    // List containing every Cameras created.
-    // ---------------------------------------------------------------------------
-    static std::list<Camera*> cameraStack;
 };

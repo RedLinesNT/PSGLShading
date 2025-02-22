@@ -4,7 +4,6 @@
 #include "Core/Core.hpp"
 
 GraphicsContext* Renderer::context = nullptr;
-std::list<Camera*> Renderer::cameraStack;
 
 bool Renderer::Initialize(const unsigned int* cellResolutionIDs, unsigned int numResolutions) {
     if (context != nullptr) { //Already been initialized!
@@ -51,6 +50,8 @@ float* colors = new float[16] {
 Transform* testObjTrans = new Transform();
 
 void Renderer::Render(float deltaTime) {
+    if (Camera::GetMainCamera() == nullptr) return;
+    
     //I'll be using "gl"-easy methods rather than doing it
     //all by myself from scratch.
     //Why? I know that PSGL use an SPE, but I don't know (at least I hope)
@@ -58,66 +59,53 @@ void Renderer::Render(float deltaTime) {
     //calculate matrices and stuff to delegate this type of "heavy" workload
     //from the CELL Broadband Engine.
     
-    for (Camera* camera : cameraStack) { //Loop throughout every camera created
-        if (camera->NeedRecalculateProjectionMatrix()) { //Something modified?
-            camera->RecalculateProjectionMatrix();
-        }
-
-        //Update the current camera first
-        camera->GetTransform().Update();
-
-        //Retrieve the camera's matrices
-        Matrix4 projMatrix = camera->GetProjectionMatrix();
-        Matrix4 viewMatrix = -camera->GetViewMatrix();
-
-        //TODO: REMOVE ONLY USED TO TEST A QUAD HERE
-        testObjTrans->Rotation[0] += 1.0f * deltaTime;
-        testObjTrans->Rotation[1] += 1.0f * deltaTime;
-        testObjTrans->Rotation[2] += 1.0f * deltaTime;
-        testObjTrans->Update();
-
-        //Projection Matrix (Camera)
-        glMatrixMode(GL_PROJECTION);
-        glLoadMatrixf((GLfloat*)&projMatrix);
-
-        //View Matrix (Camera)
-        glMatrixMode(GL_MODELVIEW);
-        glLoadMatrixf((GLfloat*)&viewMatrix);
-
-        //Model Transform (of the test quad in this case)
-        glMultMatrixf((GLfloat*)&testObjTrans->GetLocalToWorld());
-        
-        glDisable(GL_DEPTH_TEST);
-        glCullFace(GL_FRONT);
-
-        //TODO: REMOVE ONLY USED TO TEST A QUAD HERE
-        glEnableClientState(GL_VERTEX_ARRAY);
-        glEnableClientState(GL_COLOR_ARRAY);
-            glVertexPointer(3, GL_FLOAT, 0, vertices);
-            glColorPointer(4, GL_FLOAT, 0, colors);
-            glDrawArrays(GL_QUADS, 0, 4);
-        glDisableClientState(GL_VERTEX_ARRAY);
-        glDisableClientState(GL_COLOR_ARRAY);
-        
-
-        //TODO: for loop something here
-        //TODO: Update registered Render-able objects?
-
-        glPopMatrix();
+    if (Camera::GetMainCamera()->NeedRecalculateProjectionMatrix()) { //Something modified?
+        Camera::GetMainCamera()->RecalculateProjectionMatrix();
     }
-    
+
+    //Update the main camera first
+    Camera::GetMainCamera()->GetTransform().Update();
+
+    //Retrieve the camera's matrices
+    Matrix4 projMatrix = Camera::GetMainCamera()->GetProjectionMatrix();
+    Matrix4 viewMatrix = -Camera::GetMainCamera()->GetViewMatrix();
+
+    //TODO: REMOVE ONLY USED TO TEST A QUAD HERE
+    testObjTrans->Rotation[0] += 1.0f * deltaTime;
+    testObjTrans->Rotation[1] += 1.0f * deltaTime;
+    testObjTrans->Rotation[2] += 1.0f * deltaTime;
+    testObjTrans->Update();
+
+    //Projection Matrix (Camera)
+    glMatrixMode(GL_PROJECTION);
+    glLoadMatrixf((GLfloat*)&projMatrix);
+
+    //View Matrix (Camera)
+    glMatrixMode(GL_MODELVIEW);
+    glLoadMatrixf((GLfloat*)&viewMatrix);
+
+    //Model Transform (of the test quad in this case)
+    glMultMatrixf((GLfloat*)&testObjTrans->GetLocalToWorld());
+        
+    glDisable(GL_DEPTH_TEST);
+    glCullFace(GL_FRONT);
+
+    //TODO: REMOVE ONLY USED TO TEST A QUAD HERE
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glEnableClientState(GL_COLOR_ARRAY);
+    glVertexPointer(3, GL_FLOAT, 0, vertices);
+    glColorPointer(4, GL_FLOAT, 0, colors);
+    glDrawArrays(GL_QUADS, 0, 4);
+    glDisableClientState(GL_VERTEX_ARRAY);
+    glDisableClientState(GL_COLOR_ARRAY);
+        
+
+    //TODO: for loop something here
+    //TODO: Update registered Render-able objects?
+
+    glPopMatrix();
 }
 
 void Renderer::PostRender() {
     context->PostRender();
-}
-
-void Renderer::AddCamera(Camera* camera) {
-    cameraStack.push_back(camera);
-    DEBUG_PRINT("[Renderer] Added a new Camera into the stack.\n")
-}
-
-void Renderer::RemoveCamera(Camera* camera) {
-    cameraStack.remove(camera);
-    DEBUG_PRINT("[Renderer] Removed a Camera from the stack.\n")
 }

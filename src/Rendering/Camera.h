@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "Renderer.h"
+#include "Core/Core.hpp"
 #include "Entity/Transform.hpp"
 
 enum E_CAMERA_TYPE {
@@ -9,31 +10,14 @@ enum E_CAMERA_TYPE {
 
 class Camera {
 public:
-    inline Camera(const E_CAMERA_TYPE type) {
-        this->type = type;
-        transform = new Transform();
-        needsRecalculateProjectionMatrix = true;
-        Renderer::AddCamera(this);
-    }
-    virtual inline ~Camera() {
-        Renderer::RemoveCamera(this);
-        delete transform;
-    }
+    Camera(const E_CAMERA_TYPE type);
+    virtual ~Camera();
 
     // ---------------------------------------------------------------------------
     // Recalculate/Set its Projection Matrix.
     // ---------------------------------------------------------------------------
     virtual void RecalculateProjectionMatrix() = 0;
 
-    // ---------------------------------------------------------------------------
-    // Does this Camera need to recalculate its Projection Matrix.
-    // ---------------------------------------------------------------------------
-    inline bool NeedRecalculateProjectionMatrix() const { return needsRecalculateProjectionMatrix; }
-    inline Transform& GetTransform() const { return *transform; }
-    // ---------------------------------------------------------------------------
-    // Returns the Projection Matrix of this Camera.
-    // ---------------------------------------------------------------------------
-    inline Matrix4 GetProjectionMatrix() const { return projectionMatrix; }
     // ---------------------------------------------------------------------------
     // Calculate and give the View Matrix of this Camera.
     // ---------------------------------------------------------------------------
@@ -43,12 +27,32 @@ public:
     //
     //      The scale of this Camera's Transform isn't taken in account.
     // ---------------------------------------------------------------------------
-    inline Matrix4 GetViewMatrix() const {
-        return Matrix4::rotationZ(-transform->Rotation.getZ()) * 
-                Matrix4::rotationY(-transform->Rotation.getY()) * 
-                Matrix4::rotationX(-transform->Rotation.getX()) *
-                Matrix4::translation(-transform->Position);
-    }
+    Matrix4 GetViewMatrix() const;
+    
+    inline Transform& GetTransform() const { return *transform; }
+    // ---------------------------------------------------------------------------
+    // Does this Camera need to recalculate its Projection Matrix.
+    // ---------------------------------------------------------------------------
+    inline bool NeedRecalculateProjectionMatrix() const { return needsRecalculateProjectionMatrix; }
+    // ---------------------------------------------------------------------------
+    // Returns the Projection Matrix of this Camera.
+    // ---------------------------------------------------------------------------
+    inline Matrix4 GetProjectionMatrix() const { return projectionMatrix; }
+
+    // ---------------------------------------------------------------------------
+    // Returns the main/active Camera. 
+    // ---------------------------------------------------------------------------
+    // Remarks:
+    //      Only this Camera will be used for rendering.
+    // ---------------------------------------------------------------------------
+    inline static Camera* GetMainCamera() { return mainCamera; }
+    // ---------------------------------------------------------------------------
+    // Sets the main/active Camera.
+    // ---------------------------------------------------------------------------
+    // Remarks:
+    //      Only this Camera will be used for rendering.
+    // ---------------------------------------------------------------------------
+    inline static void SetMainCamera(Camera* cam) { mainCamera = cam; DEBUG_PRINT("[Camera] Main Camera set.\n") }
 protected:
     Transform* transform;
     E_CAMERA_TYPE type;
@@ -56,9 +60,16 @@ protected:
     // Does this Camera need to recalculate its Projection Matrix.
     // ---------------------------------------------------------------------------
     bool needsRecalculateProjectionMatrix;
-
     // ---------------------------------------------------------------------------
     // The Projection Matrix of this Camera.
     // ---------------------------------------------------------------------------
     Matrix4 projectionMatrix;
+    
+    // ---------------------------------------------------------------------------
+    // The main/active Camera. 
+    // ---------------------------------------------------------------------------
+    // Remarks:
+    //      Only this Camera will be used for rendering.
+    // ---------------------------------------------------------------------------
+    static Camera* mainCamera;
 };
