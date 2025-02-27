@@ -21,11 +21,11 @@ CameraInfoConsole::CameraInfoConsole(const DebugConsoleInitOptions& options) : D
 void CameraInfoConsole::Update(float deltaTime) { //TODO: Modify this mess
     if (Camera::GetMainCamera() == nullptr) return;
 
-    //TODO: What the fuck, I'll regret this soon
+    //TODO: What the fuck, I'll regret this soon ?
     if (Camera::GetMainCamera()->GetType() == E_CAMERA_TYPE::CAM_TYPE_PERSPECTIVE) {
-        PerspectiveCamera& pers = static_cast<PerspectiveCamera&>(*Camera::GetMainCamera());
+        auto* pers = static_cast<PerspectiveCamera*>(Camera::GetMainCamera());
         this->PrintfPut("FOV: %.1f / FAR: %.1f / NEAR: %.1f",
-                        pers.GetFieldOfView(), pers.GetFarPlane(), pers.GetNearPlane());
+                        pers->GetFieldOfView(), pers->GetFarPlane(), pers->GetNearPlane());
     }
 
     this->PrintfPut("\nPOS: %.1f, %.1f, %.1f",
